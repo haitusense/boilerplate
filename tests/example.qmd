@@ -1,0 +1,129 @@
+
+
+```{r}
+install.packages(paste(getwd(), "/R", sep = ""), repos = NULL, type = "source")
+```
+
+, force = TRUE
+```{r}
+remotes::install_github("haitusense/boilerplate/R")
+```
+, INSTALL_opts = '--no-lock', force = TRUE
+```{r}
+remove.packages("boilerplateR")
+```
+
+
+
+```{r}
+df <- data.frame(x = c(1,2,3), y=c(2,3,4))
+boilerplateR::kwargs()                                        # null
+boilerplateR::kwargs(5, "a", a = 3.1 + 2, b = "hoge", a = 8)  # Object {"": Number(5.0), "a": Number(5.1), "b": String("hoge")}
+boilerplateR::kwargs(a = 3.1 + 2, b = "hoge", a = 8)          # Object {"a": Number(5.1), "b": String("hoge")}
+boilerplateR::kwargs(a = 3.1 + 2, b = "hoge", x = df, y = x)  # ERR
+boilerplateR::kwargs(5, "a")                                  # list!(5.0, ["a"]) -> Object {"NA": Number(5.0)}
+```
+
+
+```{r}
+boilerplateR::ex_robj_types(4)
+```
+
+```{r}
+
+for (i in c("normal", "error", "error_stack", "warning", "panic")) {
+  tryCatch({ 
+      message(paste("-------- ", i, " --------"))
+      message(boilerplateR::panic(i))
+    },
+    error = function(e) { message(paste("ERROR! ", e, sep = " ")) },
+    warning = function(e) { message(paste("WARNING! ", e, sep = " ")) },
+    # condition = function(e) { message(paste("condition! ", e, sep = " ")) },
+    finally = { message("finish.") },
+    silent = TRUE
+  )
+}
+
+```
+
+
+
+
+https://github.com/extendr/extendr/tree/7789f79a79bac33429aee562884be99a60b3767b/extendr-api
+
+
+
+
+```{r}
+func <- function(...) {
+  args <- eval(substitute(alist(...)))
+  for (i in 1:length(args)) {
+    a <- names(args)[i]
+    b <- eval(args[[i]])
+    print(paste(a, b, sep = " : "))
+    named_values <<- b
+    names(named_values) <<- a
+  }
+  print(jsonlite::toJSON(named_values))
+  # eval(parse(text=args["a"]))
+}
+func(a = 3.1 + 2, b = "hoge", c = 3, a= 4)
+
+# func(a = 3.1 + 2, b = "hoge", x = data.frame(x = c(1,2,3), y=c(2,3,4)), y = x)
+
+```
+
+```{r}
+install.packages("hash")
+```
+
+
+
+```{r}
+fn <- function(a){ a + 3 }
+df <- data.frame(x = c(1,2,3), y=c(2,3,4))
+
+boilerplateR::ex_robj_types(1) # real
+boilerplateR::ex_robj_types(as.integer(1)) # integer
+boilerplateR::ex_robj_types("a")
+boilerplateR::ex_robj_types(2.9) # real
+boilerplateR::ex_robj_types(TRUE)
+boilerplateR::ex_robj_types(fn, 5)
+
+boilerplateR::ex_robj_types(c(1,2,3)) # doubles
+boilerplateR::ex_robj_types(c(1,2,3))
+boilerplateR::ex_robj_types(data.frame(x = c(1,2,3), y=c(2,3,4)))
+```
+
+```{r}
+df <- data.frame(x = c(1,2,3), y=c(2,3,4))
+boilerplateR::ex_robj_to_args()                                    # list!()
+boilerplateR::ex_robj_to_args(a = 3.1, b = "hoge", x = df, a = 4, y = x, 3 , 6, 8)  # list!(a=3.1, b=["hoge"], x=sym!(df), y=sym!(x))
+```
+
+
+```{r}
+f <- function(src) {
+  switch (src,
+    "panic" = stop("Panic!"),
+    "warning" = warning("warning"),
+    print("normal")
+  )
+}
+for (i in c("panic","warning","normal")) {
+  tryCatch(
+    { f(i) },
+    error = function(e) { message(paste("ERROR! ", e, sep = " ")) },
+    warning = function(e) { message(paste("WARNING! ", e, sep = " ")) },
+    finally = { message("finish.") },
+    silent = TRUE
+  )
+}
+
+```
+
+```{r}
+
+
+boilerplateR::hello_world()
+```

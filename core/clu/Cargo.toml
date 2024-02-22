@@ -1,0 +1,26 @@
+[package]
+name = "boilerplate-clu"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "boilerplate-a"
+path = "src/main.rs"
+
+[[bin]]
+name = "boilerplate-b"
+path = "src/main-b.rs"
+
+[features]
+
+[dependencies]
+boilerplate = { workspace = true }
+argsproc = { workspace = true }
+
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+colored = { workspace = true }
+
+clap = { version = "4.4.10", features = ["derive",] }

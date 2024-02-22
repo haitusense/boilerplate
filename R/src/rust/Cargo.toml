@@ -1,0 +1,23 @@
+[package]
+name = 'boilerplateR'
+version = '0.1.0'
+edition = '2021'
+
+[lib]
+crate-type = [ 'staticlib' ]
+name = 'boilerplateR'
+
+[features]
+default = []
+github = []
+local = []
+
+[dependencies]
+anyhow = '*'
+thiserror = '*'
+colored = "*"
+serde = { version = "*", features = ["derive"] }
+serde_json = "*"
+extendr-api = '*'
+
+boilerplate = { git = "https://github.com/haitusense/boilerplate", package = "boilerplate", features = ["r-lang"] }

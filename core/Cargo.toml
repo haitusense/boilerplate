@@ -1,0 +1,18 @@
+[workspace]
+
+members = [
+  "boilerplate",
+  "clu",
+  "argsproc"
+]
+### membersで*使った時のbar除外設定
+# members = ["crates/*"]
+# exclude = ["crates/bar"]
+
+[workspace.dependencies]
+boilerplate = { path = "./boilerplate" }
+argsproc = { path = "./argsproc" }
+
+anyhow = "*"
+thiserror = "*"
+colored = "*"
