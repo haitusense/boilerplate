@@ -5,7 +5,7 @@ const R_PATH: &str = r"C:\Program Files\R\R-4.3.2\bin\x64\";
 fn call_r(code:&str) {
   use std::io::Write;
 
-  let tempfile = tempfile::Builder::new().suffix(".py").tempfile().unwrap();
+  let tempfile = tempfile::Builder::new().suffix(".r").tempfile().unwrap();
   let file_name = tempfile.path().to_string_lossy();
   println!("created : {:?}", file_name);
 
@@ -29,7 +29,6 @@ fn test_r_version() {
     getwd()
   "#};
   call_r(code.as_str());
-  // "C:/Users/KURODA Akihiro/Documents/GitHub/boilerplate/core/boilerplate"
 }
 
 #[test]
